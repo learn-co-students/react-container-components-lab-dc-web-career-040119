@@ -1,14 +1,35 @@
-import React, {Component, Fragment} from 'react'
+import React from 'react'
+const Review = ({
+  headline,
+  byline,
+  link,
+  summary_short
+}) => {
+  return (
 
-const MovieReviews = (props) => {
-  return(<>
-            <ul>
-              {props.results.map(review => <React.Fragment> key={review.display_title}>
-                <h4>{review.headline}</h4>
-                <p>{review.summary_short}</p>
-              <a href='{review.link.url}'>{review.suggested_link_text}</a> </React.Fragment>
-            </ul>
-        </>)
-}
+    <div
+      key={headline}
+      className="review"
+    >
+      <header>
+        <a
+          className="review-link"
+          href={link.url}
+        >
+          {headline}
+        </a>
+        <br/>
+        <span className="author">{byline}</span>
+      </header>
+      <blockquote>{summary_short}</blockquote>
+    </div>
+  );
+};
 
-export default MovieReviews
+const MovieReviews = ({ reviews }) => <div className="review-list">{reviews.map(Review)}</div>;
+
+MovieReviews.defaultProps = {
+  reviews: []
+};
+
+export default MovieReviews;
